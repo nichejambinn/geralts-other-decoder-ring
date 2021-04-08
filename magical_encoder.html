@@ -1,0 +1,87 @@
+<html>
+<head>
+  <style>
+  body * {
+    font-family: 'SpaceMono', serif;
+    margin-top: 10px;
+  }
+  body {
+    display: flex;
+    flex-flow: column;
+    margin: 0 auto;
+    width: 500px;
+  }
+  div {
+    flex: 1 0;
+    align-items: flex-end;
+  }
+  textarea {
+    width: 100%;
+    flex: 5 0;
+  }
+  </style>
+</head>
+<body>
+<p>You are Geralt of Rivia. The Nilfgaardians seek to destroy the world. Your eternal love, Yennefer, has sent you the secret phrase to the tower where Ciri is locked up. Alas, it was encoded with an ancient magic known only to the elves and you, stupid you, have lost your magical decoder... Is destiny on your side? </p>
+  <textarea id="input" placeholder="type something here..."></textarea>
+  <div>
+    <button onclick="return encode();">Encode</button>
+    <button onclick="return decode();">Decode</button>
+  </div>
+<script>
+function encode() {
+  var t = input.value;
+  input.value = applyMagicalEncoder(t);
+  return false;
+}
+
+function decode() {
+  var t = input.value;
+  input.value = applyMagicalDecoder(t);
+  return false;
+}
+
+function doTheShuffle(arra1) {
+    var ctr = arra1.length, temp, index;
+
+    while (ctr > 0) {
+
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = arra1[ctr];
+        arra1[ctr] = arra1[index];
+        arra1[index] = temp;
+    }
+    return arra1;
+}
+
+function applyMagicalEncoder(input) {
+  var a=[];
+  for (var i=0; i<input.length; i++) {
+    var b = input.charCodeAt(i);
+    var c = ('' + b).split('');
+    for (var d=0; d<c.length; d++) {
+      e = parseInt(c[d]);
+      f = e + 13*(d+1) + 137*(i+1);
+      a.push(f);
+    }    
+  }
+
+  var g = doTheShuffle(a);
+  
+  var r = '';
+  while (a.length) {
+    var t = a.pop();
+    r = r + "\u2665".repeat(t) + "\u2663";
+  }
+  return r;
+}
+
+/* Rebuild Me */
+function applyMagicalDecoder(input) {
+  return "";
+}
+</script>
+
+</body>
+</html>
